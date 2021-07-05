@@ -23,17 +23,17 @@ import smile.io.Write;
 import tech.tablesaw.api.Table;
 import tech.tablesaw.conversion.smile.SmileConverter;
 
-public class Functions {
+public class Functions {     // Here we Identifying Functions only
 	
-	public String pt = "Wuzzuf_Jobs.csv";
+	public String pt = "Wuzzuf_Jobs.csv";               // My Csv File
+ 	
 	
-	
-	public Table readDataTable(String path) {
+	public Table readDataTable(String path) {     // A Function called ReadDataTable which returns a Table ( Using TableSaw ) and takes a string
 		
 		try {
 			
-			Table data = Table.read().csv(path);
-			return data;
+			Table data = Table.read().csv(path);         // Object from the Table saw
+			return data;                                 // ReadDataTable Function takes a String (path), Returns Table  
 			
 		} 
 		
@@ -43,13 +43,13 @@ public class Functions {
 		}
 	}
 	
-	public DataFrame readDataJoinery(String path) {	
+	public DataFrame readDataJoinery(String path) {	   // A Function called readDataJoinery which returns a  Joinery Dataframe ( Using DataFrame ) and takes a string
 		
 		try {
 			
-			DataFrame data = DataFrame.readCsv(path);
-			return data;
-			
+			DataFrame data = DataFrame.readCsv(path);  // An Object from the DataFrame
+			return data;                               // readDataJoinery Function takes a String(path) , Returns Joinary DataFrame
+			 
 		} 
 		
 		catch (IOException e) {
@@ -58,13 +58,13 @@ public class Functions {
 		}
 	}
 	
-	public smile.data.DataFrame readDataSmile(String path) {
+	public smile.data.DataFrame readDataSmile(String path) {    // A Function called readDataSmile which returns a Smile Dataframe ( Using DataFrame ) and takes a string
 		
 		CSVFormat format = CSVFormat.DEFAULT.withFirstRecordAsHeader().withDelimiter(',');
 		try {
 			
-			smile.data.DataFrame data = Read.csv(path,format);
-			return data;
+			smile.data.DataFrame data = Read.csv(path,format);        // An Object from the Smile DataFrame
+			return data;                                              // readDataSmile Function Takes a String(path) , returns  smile.data.DataFrame
 			
 		} 
 		
@@ -79,18 +79,19 @@ public class Functions {
 		}
 	}
 	
-	public List<String> structureAndSummary(smile.data.DataFrame data) {
+	public List<String> structureAndSummary(smile.data.DataFrame data) { // A Function called structureAndSummary which returns a List of <String> and takes smile dataframe
 		
-		List <String> ss = new ArrayList<String>();
-		ss.add(data.summary().toString());
-		ss.add(data.structure().toString());
+		List<String> ss = new ArrayList<String>();            // An Object from el List<String> 
+		ss.add(data.summary().toString());                    // Summary() is a built-in Function in Smile DataFrame to make a Summary of the data
+		ss.add(data.structure().toString());                  // Structure() is a built-in Function in Smile DataFrame to make a Structure of the Data.
 		
-		return ss;
+		return ss;                                            // structureAndSummary Function Takes a Dataframe , Returns a list of ( Summary and Structure ) 
 		
 	}
 	
+	// Data Cleaning : 
 	
-	public DataFrame cleanData(Table data) {
+	public DataFrame cleanData(Table data) { // A Function called cleanData which returns a DataFrame and takes a Tablesaw
 		
 		this.pt = "Wuzzuf_Jobs_Filtered.csv";
 		CSVFormat format = CSVFormat.DEFAULT.withDelimiter(',');
