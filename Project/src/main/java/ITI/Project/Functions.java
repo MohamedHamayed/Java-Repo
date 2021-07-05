@@ -94,7 +94,7 @@ public class Functions {     // Here we Identifying Functions only
 	public DataFrame cleanData(Table data) { // A Function called cleanData which returns a DataFrame and takes a Tablesaw
 		
 		this.pt = "Wuzzuf_Jobs_Filtered.csv";
-		CSVFormat format = CSVFormat.DEFAULT.withDelimiter(',');
+		CSVFormat format = CSVFormat.DEFAULT.withDelimiter(',');  // ta3deeel for Osamaaa
 		
 		Table clean_data = data.dropRowsWithMissingValues().dropDuplicateRows();
 //		SmileConverter cd = clean_data.smile();
