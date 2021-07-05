@@ -323,6 +323,8 @@ public class Main {
 		System.out.print("\n");
 		System.out.print(data_j);
 		
+		double[][] kmeans = kmeans(data_s);
+		System.out.print(kmeans[0]);
 		
 		
 		List<String> title = lsAreas.get(0);
@@ -334,5 +336,23 @@ public class Main {
 	    new SwingWrapper<CategoryChart>(chart).displayChart();
 		
 	}
+	
+	public static double[][] kmeans(smile.data.DataFrame data) {
+		
+		String[] titleValues = data.stringVector("Title").distinct().toArray(new String[]{});
+		int[] titleFd = data.stringVector("Title").factorize(new NominalScale(titleValues)).toIntArray();
+		data = data.merge(IntVector.of("TitleFact", titleFd));
+		
+		String[] companyValues = data.stringVector("Company").distinct().toArray(new String[]{});
+		int[] companyFd = data.stringVector("Company").factorize(new NominalScale(companyValues)).toIntArray();
+		data = data.merge(IntVector.of("CompanyFact", companyFd));
+		
+		double[][] kmeans = data.select("CompanyFact", "TitleFact").toArray();
+		
+		return kmeans;
+		
+	}
+	
+	
 
 }

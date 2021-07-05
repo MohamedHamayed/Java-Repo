@@ -53,6 +53,11 @@ public class Consumer {
 		df = restTemplate.getForObject("http://localhost:8080/factExp", List.class);
 		return df;
 		}
+	public double[][] kmeans() {
+		double[][] df;
+		df = restTemplate.getForObject("http://localhost:8080/kmeans", double[][].class);
+		return df;
+		}
 //	public Row getRow() {
 //		Row row;
 //		row = restTemplate.getForObject("http://localhost:8080/getRow", Row.class);

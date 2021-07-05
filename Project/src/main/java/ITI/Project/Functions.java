@@ -18,6 +18,8 @@ import org.apache.commons.csv.CSVFormat;
 import org.springframework.stereotype.Component;
 
 import joinery.DataFrame;
+import smile.data.measure.NominalScale;
+import smile.data.vector.IntVector;
 import smile.io.Read;
 import smile.io.Write;
 import tech.tablesaw.api.Table;
@@ -233,6 +235,21 @@ public class Functions {
 		
 		df.add("FactorizedExpYears", fd);
 		return df;
+		
+	}
+	
+	public double[][] kmeans(smile.data.DataFrame data) {
+		
+		String[] titleValues = data.stringVector("Title").distinct().toArray(new String[]{});
+		int[] titleFd = data.stringVector("Title").factorize(new NominalScale(titleValues)).toIntArray();
+		data = data.merge(IntVector.of("TitleFact", titleFd));
+		
+		String[] companyValues = data.stringVector("Company").distinct().toArray(new String[]{});
+		int[] companyFd = data.stringVector("Company").factorize(new NominalScale(companyValues)).toIntArray();
+		data = data.merge(IntVector.of("CompanyFact", companyFd));
+		
+		double[][] kmeans = data.select("CompanyFact", "TitleFact").toArray();
+		return kmeans;
 		
 	}
 

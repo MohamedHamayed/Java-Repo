@@ -1,5 +1,6 @@
 package Test;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;	
 import java.util.Arrays;
 import java.util.List;
@@ -7,6 +8,9 @@ import java.util.Map;
 import java.util.Scanner;
 
 import joinery.DataFrame;
+import smile.clustering.KMeans;
+import smile.clustering.PartitionClustering;
+import smile.plot.swing.ScatterPlot;
 
 public class ConsumerTest {
 
@@ -24,7 +28,7 @@ public class ConsumerTest {
 					+ "\n6 - Display most popular job titles\n7 - Bar chart for most popular job titles"
 					+ "\n8 - Display most popular areas\n9 - Bar chart for most popular areas"
 					+ "\n10 - Display most important skills\n11 - Bar chart for most important skills"
-					+ "\n12 - Factorize years of experience\n13 - Quit");
+					+ "\n12 - Factorize years of experience\n13 - K-means scatter plot for job titles and companies\n14 - Quit");
 			int x = in.nextInt();
 			
 			if (x==1) {
@@ -152,6 +156,17 @@ public class ConsumerTest {
 			}
 			
 			else if (x==13) {
+				
+				double [][] kmeans = consumer.kmeans();
+				KMeans clusters = PartitionClustering.run(100, () -> KMeans.fit(kmeans,3));
+				try {
+					ScatterPlot.of(kmeans, clusters.y, '.').canvas().setAxisLabels("Companies", "Jobs").window();
+				} catch (InvocationTargetException | InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			else if (x==14) {
 				flag = false;
 			}
 			

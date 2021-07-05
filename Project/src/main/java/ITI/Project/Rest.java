@@ -31,7 +31,6 @@ public class Rest {
 	@RequestMapping("/summaryAndStructure")
 	public List <String> sumAndStr() {
 		
-		DataFrame data_j = func.readDataJoinery(func.pt);
 		smile.data.DataFrame data_s = func.readDataSmile(func.pt);
 		List <String> ss = new ArrayList<String>();
 		ss = func.structureAndSummary(data_s);
@@ -101,8 +100,18 @@ public class Rest {
 		return ls;
 	}
 	
+	@RequestMapping("/kmeans")
+	public double[][] kmeans() {
+		
+		smile.data.DataFrame data_s = func.readDataSmile(func.pt);
+		double[][] k = func.kmeans(data_s);
+		
+		return k;
+	}
+	
 	@RequestMapping("/getRow")
 	public Row row() {
+		
 		DataFrame data_j = func.readDataJoinery(func.pt);
 		List<String> l = data_j.row(0);
 		Row row = new Row(l);
