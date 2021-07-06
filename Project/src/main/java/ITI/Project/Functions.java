@@ -189,8 +189,8 @@ public class Functions {
         countSorted = count.entrySet().stream().sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())).limit(5).collect(Collectors.toMap(entry -> entry.getKey(), entry -> entry.getValue()));
         
         List<List<String>> ls = new ArrayList<List<String>>();
-        List<String> titleList = countSorted.keySet().stream().toList();
-        List<Integer> countList = countSorted.values().stream().toList();
+        List<String> titleList = countSorted.keySet().stream().collect(Collectors.toList());
+        List<Integer> countList = countSorted.values().stream().collect(Collectors.toList());
         List<String> sCountList = countList.stream().map(String::valueOf).collect(Collectors.toList()); 
 		ls.add(titleList);
 		ls.add(sCountList);

@@ -171,10 +171,10 @@ public class ConsumerTest {
 			}
 			
 			else {
-				System.out.print("Wrong input");
+				System.out.print("Wrong input\n");
 			}
 		}
-		
+		in.close();
 	}
 
 }
