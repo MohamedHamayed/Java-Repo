@@ -83,11 +83,11 @@ public class Functions {
 	
 	public List<String> structureAndSummary(smile.data.DataFrame data) {
 		
-		List <String> ss = new ArrayList<String>();
-		ss.add(data.summary().toString());
-		ss.add(data.structure().toString());
+		List <String> ls = new ArrayList<String>();
+		ls.add(data.summary().toString());
+		ls.add(data.structure().toString());
 		
-		return ss;
+		return ls;
 		
 	}
 	
@@ -98,9 +98,7 @@ public class Functions {
 		CSVFormat format = CSVFormat.DEFAULT.withDelimiter(',');
 		
 		Table clean_data = data.dropRowsWithMissingValues().dropDuplicateRows();
-//		SmileConverter cd = clean_data.smile();
-//		smile.data.DataFrame df = cd.toDataFrame();
-//		Path path = Paths.get("Wuzzuf_Jobs_Filtered.csv");
+		
 		try {
 			clean_data.write().csv(this.pt);
 		} catch (IOException e) {
@@ -113,34 +111,34 @@ public class Functions {
 		
 	}
 	
-	public List<List<String>> countJobs(DataFrame df) {
+	public List<List<String>> countJobs(DataFrame data) {
 		
-		df = df.retain("Title","Company").groupBy("Title").count().sortBy(-1).slice(0, 6);
+		data = data.retain("Title","Company").groupBy("Title").count().sortBy(-1).slice(0, 6);
 		List<List<String>> ls = new ArrayList<List<String>>();
-		List<String> titleList= df.col("Title");
-		List<Integer> countList=df.col("Company");
+		List<String> titleList= data.col("Title");
+		List<Integer> countList=data.col("Company");
 		List<String> sCountList = countList.stream().map(String::valueOf).collect(Collectors.toList()); 
 		ls.add(titleList);
 		ls.add(sCountList);
 		return ls;
 	}
 	
-	public List<List<String>> countCompanies(DataFrame df) {
+	public List<List<String>> countCompanies(DataFrame data) {
 		
-		df = df.retain("Title","Company").groupBy("Company").count().sortBy(-1).slice(1, 6);
+		data = data.retain("Title","Company").groupBy("Company").count().sortBy(-1).slice(1, 6);
 		List<List<String>> ls = new ArrayList<List<String>>();
-		List<String> titleList= df.col("Company");
-		List<Integer> countList=df.col("Title");
+		List<String> titleList= data.col("Company");
+		List<Integer> countList=data.col("Title");
 		List<String> sCountList = countList.stream().map(String::valueOf).collect(Collectors.toList()); 
 		ls.add(titleList);
 		ls.add(sCountList);
 		return ls;
 	}
 	
-	public List<List<String>> countAreas(DataFrame df) {
+	public List<List<String>> countAreas(DataFrame data) {
 		
 		List<String> cities = Arrays.asList("Alexandria","Assiut","Aswan","Beheira","Beni Suef","Cairo","Dakahlia","Damietta","Fayoum","Gharbia","Giza","Ismailia","Matruh","Minya","Monufya","New Valley","Qalubia","Qena","Red Sea","Sharqia","South Sinai","Suez");
-		List<String> countries = df.col("Country");
+		List<String> countries = data.col("Country");
 		List<String> areas = new ArrayList<String>();
 		
 		for(int i = 0; i < countries.size(); i++) {
@@ -158,20 +156,20 @@ public class Functions {
 			}
 		}
 		
-		df.add("Area", areas);
-		df = df.retain("Area","Company").groupBy("Area").count().sortBy(-1).slice(0, 6);
+		data.add("Area", areas);
+		data = data.retain("Area","Company").groupBy("Area").count().sortBy(-1).slice(0, 6);
 		List<List<String>> ls = new ArrayList<List<String>>();
-		List<String> titleList= df.col("Area");
-		List<Integer> countList=df.col("Company");
+		List<String> titleList= data.col("Area");
+		List<Integer> countList=data.col("Company");
 		List<String> sCountList = countList.stream().map(String::valueOf).collect(Collectors.toList()); 
 		ls.add(titleList);
 		ls.add(sCountList);
 		return ls;
 	}
 	
-	public List<List<String>> countSkills(DataFrame df) {
+	public List<List<String>> countSkills(DataFrame data) {
 		
-		List<String> skills = df.col("Skills");
+		List<String> skills = data.col("Skills");
 		List<String> sk = new ArrayList<String>();
 		for(int i = 0; i < skills.size(); i++) {
 			String[] skill = skills.get(i).split(",");
@@ -199,9 +197,9 @@ public class Functions {
 		return ls;
 	}
 	
-	public DataFrame factorizeExp(DataFrame df) {
+	public DataFrame factorizeExp(DataFrame data) {
 		
-		List<String> years = df.col("YearsExp");
+		List<String> years = data.col("YearsExp");
 		List<String> fd = new ArrayList<String>();
 		for (int i = 0;i<years.size();i++) {
 			
@@ -233,8 +231,8 @@ public class Functions {
 	        	
 		}
 		
-		df.add("FactorizedExpYears", fd);
-		return df;
+		data.add("FactorizedExpYears", fd);
+		return data;
 		
 	}
 	

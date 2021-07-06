@@ -46,11 +46,11 @@ public class ConsumerTest {
 			
 			else if (x==2) {
 				
-				List <String> ss = consumer.sumAndStr();
+				List <String> ls = consumer.sumAndStr();
 				System.out.println("Summary");
-				System.out.println(ss.get(0));
+				System.out.println(ls.get(0));
 				System.out.println("Structure");
-				System.out.println(ss.get(1));
+				System.out.println(ls.get(1));
 			}
 			
 			else if (x==3) {

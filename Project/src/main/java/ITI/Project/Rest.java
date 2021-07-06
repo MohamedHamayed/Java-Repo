@@ -32,10 +32,10 @@ public class Rest {
 	public List <String> sumAndStr() {
 		
 		smile.data.DataFrame data_s = func.readDataSmile(func.pt);
-		List <String> ss = new ArrayList<String>();
-		ss = func.structureAndSummary(data_s);
+		List <String> ls = new ArrayList<String>();
+		ls = func.structureAndSummary(data_s);
 		
-		return ss;
+		return ls;
 	}
 	
 	@RequestMapping("/cleanData")
@@ -92,7 +92,7 @@ public class Rest {
 		
 		List<List<String>> ls = new ArrayList<List<String>>();
 		DataFrame data_j = func.readDataJoinery(func.pt);
-		DataFrame data_f = func.factorizeExp(data_j);
+		data_j = func.factorizeExp(data_j);
 		for(int i = 0 ; i<data_j.length() ; i++) {
 			List<String> l = data_j.row(i);
 			ls.add(l);
